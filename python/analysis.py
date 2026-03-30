@@ -60,7 +60,6 @@ dt_by_state = dt_by_state.sort_values("avg_delivery_days")
 print("Q3 — Delivery time by state (fastest first):")
 print(dt_by_state.to_string(index=False))
 print()
-
 # Q4 — Monthly order trend
 monthly_stats = dataframe.groupby(
     dataframe["order_purchase_timestamp"].dt.to_period("M")
@@ -77,3 +76,10 @@ top_customers.columns = ["customer_id", "total_spend"]
 top_customers = top_customers.sort_values("total_spend", ascending=False).head(10)
 print("Q5 — Top 10 customers by spend:")
 print(top_customers.to_string(index=False))
+
+revenue.to_csv("./output/revenue_by_category.csv", index=False)
+dt_by_state.to_csv("./output/delivery_by_state.csv", index=False)
+monthly_stats.to_csv("./output/monthly_stats.csv", index=False)
+top_customers.to_csv("./output/top_customers.csv",index=False)
+result_df = pd.DataFrame({"late_delivery_percentage": [late_pct]})
+result_df.to_csv("./output/late_pct.csv", index=False)
